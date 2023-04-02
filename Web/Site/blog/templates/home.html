@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    {% for post in posts %}
+        <li>
+            <h2>{{post.name}}</h2>
+            <p>{{post.text|linebreaks}}</p>
+            <a href="{%url 'detail' post.pk%}"><button>Перейти</button></a>
+            <hr>
+        </li>
+    {% endfor %}
+</body>
+</html>
