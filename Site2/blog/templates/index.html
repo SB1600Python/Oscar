@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+{% block content %}
+     {% for post in posts %}
+          <li>
+               <h2>{{ post.title }}</h2>
+               {% autoescape off %}
+               <p>{{ post.text|linebreaks|truncatewords:5}}</p>
+               {% endautoescape %}
+               <a href="{% url 'detail' post.pk %}"><button>Перейти</button></a>
+               <hr>
+          </li>
+     {% endfor %}
+     {% include "paginator.html" with page=posts %}
+{% endblock %}

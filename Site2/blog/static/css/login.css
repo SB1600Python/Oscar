@@ -1,0 +1,14 @@
+.log {
+    height: max-content;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    color: white;
+    background:rgba(0, 0, 0);
+}
