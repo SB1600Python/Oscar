@@ -1,12 +1,12 @@
-from django.shortcuts import render, redirect,  HttpResponseRedirect
-from blog.models import Post
+from django.shortcuts import render, redirect,HttpResponseRedirect, get_object_or_404
+from blog.models import *
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView
-from blog.forms import PostForm
+from blog.forms import PostForm, ChatForm 
 
 def view_login(request):
      if request.method == 'POST':
@@ -77,3 +77,38 @@ def delete(request, id):
           return redirect('home')
      except:
           return HttpResponseRedirect('/')
+     
+          
+
+          
+def update(request, id):
+     try:
+          post = get_object_or_404(Post, id)
+
+          if request.method == 'GET':
+               form = PostForm(instance=post)
+               if request.user is not post.authot:
+                    return render(request, 'update.html', {'form' : form})
+               
+          if request.method == 'POST':
+               form = PostForm(request.POST, isinstance=post )
+               if form.is_vaild():
+                    form.save
+                    return redirect('home')
+
+     except Exception as e:
+          print(e)
+          return HttpResponseRedirect('/')
+
+
+def chat(request, room_id):
+     room = ChatRoom.objects.get(id=room_id)
+     messages = room.massages.all()
+
+     if request.method == 'GET':
+          message_text= request.POST.get('message')
+          message_user = request.user
+          message = Message.objects.create(room=room, text=message_text, author=message_user )
+          messages = room.massages.all()
+     return render(request, 'chat.html', {'room': room, 'messages': messages})
+

@@ -29,7 +29,10 @@ urlpatterns = [
     path('register', RegisterView.as_view(), name='register'),
     path('logout', logout_view, name='logout'),
     # path('createPost', create_post, name='create'),
-    path('create/', PostView.as_view(), name='create')
+    path('create/', PostView.as_view(), name='create'),
+    path('delete/<int:id>', delete, name= 'post_delete'),
+    path('update/<int:id>', update, name= 'post_update'),
+    path('chat/<int:room_id>',  chat, name= 'chat'),
 ]
 
 if settings.DEBUG:

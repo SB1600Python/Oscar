@@ -8,7 +8,10 @@
                {% autoescape off %}
                <p>{{ post.text|linebreaks|truncatewords:5}}</p>
                {% endautoescape %}
+               {{ post.id }}
                <a href="{% url 'detail' post.pk %}"><button>Перейти</button></a>
+               <a href="{% url 'post_delete' post.id %}"><button>Видалить</button></a>
+               <a href="{% url 'post_update' post.id %}"><button>Змінити</button></a>
                <hr>
           </li>
      {% endfor %}
