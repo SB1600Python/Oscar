@@ -14,12 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from blog.views import *
 
 from django.conf import settings
 from django.conf.urls.static import static
 
+from weather import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,6 +34,7 @@ urlpatterns = [
     path('delete/<int:id>', delete, name= 'post_delete'),
     path('update/<int:id>', update, name= 'post_update'),
     path('chat/<int:room_id>',  chat, name= 'chat'),
+    path('weather/', include('weather.urls')),
 ]
 
 if settings.DEBUG:
